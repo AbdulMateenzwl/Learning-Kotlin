@@ -16,6 +16,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -50,12 +51,15 @@ fun HomeView(
             }
         }
     ) {
+
+        val wishlist = viewModel.getAllWishes.collectAsState(initial = listOf())
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
         ) {
-            items(DummyWish.wishList) { wish ->
+            items(wishlist.value) { wish ->
                 WishItem(wish = wish) { }
             }
         }
